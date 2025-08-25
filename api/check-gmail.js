@@ -1,6 +1,7 @@
 const { listRecentNotificationEmails, getEmailFull, extractPlainTextFromMessage } = require('../lib/gmail');
 const { parseEmailContent } = require('../lib/parser');
 const { generateAds } = require('../lib/generator');
+const { sendAdsGeneratedEmail } = require('../lib/email-sender');
 
 module.exports = async (req, res) => {
 	if (req.method !== 'GET' && req.method !== 'POST') {
@@ -37,6 +38,15 @@ module.exports = async (req, res) => {
 
 			const property = parseEmailContent(emailData);
 			const ads = await generateAds(property);
+			
+			// Envoyer l'email avec les visuels générés
+			try {
+				await sendAdsGeneratedEmail(property, ads);
+				console.log('✅ Email envoyé pour:', property.title);
+			} catch (emailError) {
+				console.warn('⚠️ Erreur envoi email:', emailError.message);
+			}
+			
 			results.push({ property, ads });
 		}
 

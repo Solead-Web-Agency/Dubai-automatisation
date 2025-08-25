@@ -6,6 +6,7 @@ const { simpleParser } = require('mailparser');
 const { generateAds } = require('../lib/generator');
 const { parseEmailContent } = require('../lib/parser');
 const { sendAdsGeneratedEmail } = require('../lib/email-sender');
+const checkGmailHandler = require('./check-gmail');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: [
       'POST /api/webhook - Recevoir les notifications d\'email',
+      'GET/POST /api/check-gmail - Vérifier Gmail et générer des visuels',
       'POST /api/generate - Générer manuellement des visuels',
       'GET /api/test - Tester avec des données fictives',
       'POST /api/test-email - Tester l\'envoi d\'email'
@@ -156,6 +158,9 @@ app.get('/api/test', async (req, res) => {
     });
   }
 });
+
+// Endpoint pour vérifier Gmail et générer des visuels
+app.all('/api/check-gmail', checkGmailHandler);
 
 // Endpoint de test email
 app.post('/api/test-email', async (req, res) => {
