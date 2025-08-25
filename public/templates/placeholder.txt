@@ -1,0 +1,11 @@
+# Templates
+
+Ce dossier contiendra les templates visuels de base pour la génération des publicités.
+
+Fichiers recommandés :
+- background-square.png (1080x1080)
+- background-story.png (1080x1920)
+- logo-dubai-immo.png
+- fonts/ (dossier pour les polices personnalisées)
+
+Pour l'instant, les visuels sont générés programmatiquement avec Sharp.
