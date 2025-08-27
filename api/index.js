@@ -1,65 +1,15 @@
-module.exports = async (req, res) => {
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  return res.end(`<!doctype html>
-<html lang=\"fr\">
-  <head>
-    <meta charset=\"utf-8\" />
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
-    <title>Dubai Immo – Texte Format Carré</title>
-    <style>
-      :root{ --bg:#0b1220; --panel:#0f172a; --muted:#94a3b8; --text:#e2e8f0; }
-      *{box-sizing:border-box}
-      body{margin:0;background:linear-gradient(180deg,#0b1220 0%,#0a0f1e 100%);color:var(--text);font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-      .wrap{min-height:100dvh;display:grid;place-items:center;padding:24px}
-      .card{width:min(920px,100%);background:#0f172a;border:1px solid #1f2937;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);overflow:hidden}
-      .header{display:flex;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid #1f2937;background:rgba(255,255,255,.02)}
-      .header img{height:40px;width:auto;display:block}
-      .header h1{margin:0;font-size:18px;letter-spacing:.3px}
-      .body{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;padding:22px}
-      @media (max-width: 860px){.body{grid-template-columns:1fr;}}
-      form .field{margin:12px 0}
-      label{display:block;margin:0 0 6px 2px;color:#94a3b8;font-size:14px}
-      input{width:100%;padding:14px 14px;border-radius:10px;background:#0b1020;border:1px solid #1f2937;color:#e2e8f0;font-size:16px;outline:none}
-      input:focus{border-color:#334155;box-shadow:0 0 0 3px rgba(51,65,85,.25)}
-      .actions{display:flex;gap:12px;margin-top:10px}
-      button{appearance:none;border:0;border-radius:10px;padding:12px 16px;font-weight:600;cursor:pointer}
-      .primary{background:#10b981;color:white}
-      .ghost{background:transparent;border:1px solid #334155;color:#e2e8f0}
-      .aside{border-left:1px solid #1f2937;padding-left:22px}
-      .aside h3{margin:0 0 10px;font-size:15px;color:#cbd5e1}
-      .hint{color:#94a3b8;font-size:14px;line-height:1.6}
-      .code{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas; background:#0b1020;border:1px solid #1f2937;border-radius:8px;padding:2px 6px;color:#f1f5f9}
-      .footer{padding:14px 22px;border-top:1px solid #1f2937;color:#9aa7b9;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-      a{color:#38bdf8;text-decoration:none}
-    </style>
-  </head>
-  <body>
-    <div class=\"wrap\"> 
-      <div class=\"card\"> 
-        <div class=\"header\"> 
-          <img src=\"/api/logo\" alt=\"Dubai Immo\" /> 
-          <h1>Configurer le texte – Format Carré</h1> 
-        </div>
-        <div class=\"body\">
-          <form method=\"POST\" action=\"/api/text-square\"> 
-            <div class=\"field\"><label for=\"line1\">Ligne 1</label><input id=\"line1\" name=\"line1\" placeholder=\"NOUVEAU PROJET\" /></div>
-            <div class=\"field\"><label for=\"line2\">Ligne 2</label><input id=\"line2\" name=\"line2\" placeholder=\"APPARTEMENT 70M2\" /></div>
-            <div class=\"field\"><label for=\"line3\">Ligne 3</label><input id=\"line3\" name=\"line3\" placeholder=\"À DUBAI DÈS 250.000€\" /></div>
-            <div class=\"actions\"><button class=\"primary\" type=\"submit\">Enregistrer et lancer</button><a class=\"ghost\" href=\"/api/check-gmail\" target=\"_blank\" rel=\"noopener\">Vérifier la génération</a></div>
-          </form>
-          <aside class=\"aside\">
-            <h3>Astuce</h3>
-            <p class=\"hint\">
-              - Le texte est automatiquement converti en UPPERCASE.<br/>
-              - Pour mettre un ou plusieurs mots en rouge, utilisez <span class=\"code\">red:MOT</span> ou <span class=\"code\">[[MOT]]</span> (ex: <span class=\"code\">NOUVEAU red:PROJET</span>).<br/>
-              - Si une ligne est vide, elle n’est pas affichée (aucun fallback).<br/>
-              - Les textes s’alignent entre les deux lignes rouges et respectent l’interligne.
-            </p>
-          </aside>
-        </div>
-        <div class=\"footer\"><span>Dubai Immo – Générateur de visuels</span><span><a href=\"/api/text-square\">Carré</a> · <a href=\"/api/text-story\">Story</a></span></div>
-      </div>
-    </div>
-  </body>
-</html>`);
-};
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+export default function handler(req, res) {
+  try {
+    const htmlPath = join(process.cwd(), 'index.html');
+    const html = readFileSync(htmlPath, 'utf8');
+    
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.status(200).send(html);
+  } catch (error) {
+    console.error('Erreur lecture index.html:', error);
+    res.status(500).send('Erreur serveur');
+  }
+}
