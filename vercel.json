@@ -5,5 +5,8 @@
       "runtime": "@vercel/node@2.0.0",
       "maxDuration": 30
     }
-  }
+  },
+  "routes": [
+    { "src": "^/$", "dest": "/index.html" }
+  ]
 }
