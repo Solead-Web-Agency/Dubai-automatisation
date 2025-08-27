@@ -14,8 +14,9 @@
       .brand{display:flex;align-items:center;gap:16px}
       .brand img{height:40px;width:auto;display:block}
       .brand h1{margin:0;font-size:18px;letter-spacing:.3px}
-      .tabs{display:flex;gap:8px}
-      .tab{appearance:none;border:1px solid #1f2937;background:#0b1020;color:var(--text);padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer}
+      .tabs{display:flex;gap:8px;align-items:center}
+      .tab{appearance:none;border:1px solid #1f2937;background:#0b1020;color:var(--text);padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer;font-size:14px;transition:all 0.2s ease}
+      .tab:hover{background:#1e293b;border-color:#475569}
       .tab.active{background:#0b2540;border-color:#1e3a8a;color:#e0f2fe}
       .body{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;padding:22px}
       @media (max-width: 900px){.body{grid-template-columns:1fr}}
