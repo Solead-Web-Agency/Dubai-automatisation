@@ -7,8 +7,6 @@ const { generateAds } = require('../lib/generator');
 const { parseEmailContent } = require('../lib/parser');
 const { sendAdsGeneratedEmail } = require('../lib/email-sender');
 const checkGmailHandler = require('./check-gmail');
-const textSquareHandler = require('./text-square');
-const textStoryHandler = require('./text-story');
 
 const app = express();
 
@@ -163,10 +161,6 @@ app.get('/api/test', async (req, res) => {
 
 // Endpoint pour vérifier Gmail et générer des visuels
 app.all('/api/check-gmail', checkGmailHandler);
-
-// Endpoints pour configurer les textes
-app.all('/api/text-square', textSquareHandler);
-app.all('/api/text-story', textStoryHandler);
 
 // Endpoint de test email
 app.post('/api/test-email', async (req, res) => {
