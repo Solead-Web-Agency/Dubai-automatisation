@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
 
   if (req.method === 'GET') {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    let existing = { line1: '', line2: '', line3: '', cartouche: 'IMMOBILIER À DUBAI' };
+    let existing = { line1: '', line2: '', line3: '' };
     try {
       if (fs.existsSync(configPath)) {
         existing = JSON.parse(fs.readFileSync(configPath, 'utf8'));
@@ -36,10 +36,6 @@ module.exports = async (req, res) => {
       <input id="line2" name="line2" value="${existing.line2 || ''}" />
       <label for="line3">Ligne 3</label>
       <input id="line3" name="line3" value="${existing.line3 || ''}" />
-      
-      <label for="cartouche">Cartouche</label>
-      <input id="cartouche" name="cartouche" value="${existing.cartouche || 'IMMOBILIER À DUBAI'}" placeholder="Ex: IMMOBILIER À DUBAI" />
-      
       <button type="submit">Enregistrer et lancer la génération</button>
     </form>
     <p class="hint">Uppercase automatique; rouge via <span class="code">red:MOT</span> ou <span class="code">[[MOT]]</span>; lignes vides non affichées.</p>
@@ -56,14 +52,13 @@ module.exports = async (req, res) => {
       const line1 = params.get('line1') || '';
       const line2 = params.get('line2') || '';
       const line3 = params.get('line3') || '';
-      const cartouche = params.get('cartouche') || 'IMMOBILIER À DUBAI';
-      const data = { line1, line2, line3, cartouche, savedAt: new Date().toISOString() };
+      const data = { line1, line2, line3, savedAt: new Date().toISOString() };
       fs.writeFileSync(configPath, JSON.stringify(data, null, 2));
 
       const proto = req.headers['x-forwarded-proto'] || 'https';
       const host = req.headers.host;
       const baseUrl = `${proto}://${host}`;
-      const qs = new URLSearchParams({ storyLine1: line1, storyLine2: line2, storyLine3: line3, cartouche, format: 'story' }).toString();
+      const qs = new URLSearchParams({ storyLine1: line1, storyLine2: line2, storyLine3: line3, format: 'story' }).toString();
 
       let generation;
       try {
