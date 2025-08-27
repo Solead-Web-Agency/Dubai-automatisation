@@ -39,7 +39,8 @@ module.exports = async (req, res) => {
 			const emailData = { subject: headers['subject'] || '', text, html: '', from: headers['from'] || '' };
 			const property = parseEmailContent(emailData);
 			const format = req.query && req.query.format ? String(req.query.format) : undefined;
-			const ads = await generateAds(property, { squareText: squareOverrides, storyText: storyOverrides, format });
+			const cartouche = req.query && req.query.cartouche ? String(req.query.cartouche) : undefined;
+			const ads = await generateAds(property, { squareText: squareOverrides, storyText: storyOverrides, format, cartouche });
 			try { await sendAdsGeneratedEmail(property, ads); } catch (_) {}
 			results.push({ property, ads });
 		}
