@@ -10,10 +10,11 @@
       body{margin:0;background:linear-gradient(180deg,#0b1220 0%,#0a0f1e 100%);color:var(--text);font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
       .wrap{min-height:100dvh;display:grid;place-items:center;padding:24px}
       .card{width:min(980px,100%);background:#0f172a;border:1px solid #1f2937;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);overflow:hidden}
-      .header{display:flex;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid #1f2937;background:rgba(255,255,255,.02)}
-      .header img{height:40px;width:auto;display:block}
-      .header h1{margin:0;font-size:18px;letter-spacing:.3px}
-      .tabs{display:flex;gap:8px;padding:12px 22px;border-bottom:1px solid #1f2937;background:rgba(255,255,255,.02)}
+      .header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;border-bottom:1px solid #1f2937;background:rgba(255,255,255,.02)}
+      .brand{display:flex;align-items:center;gap:16px}
+      .brand img{height:40px;width:auto;display:block}
+      .brand h1{margin:0;font-size:18px;letter-spacing:.3px}
+      .tabs{display:flex;gap:8px}
       .tab{appearance:none;border:1px solid #1f2937;background:#0b1020;color:var(--text);padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer}
       .tab.active{background:#0b2540;border-color:#1e3a8a;color:#e0f2fe}
       .body{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;padding:22px}
@@ -39,12 +40,14 @@
     <div class="wrap">
       <div class="card">
         <div class="header">
-          <img src="/api/logo" alt="Dubai Immo" />
-          <h1>Configurer le texte – Générateur de visuels</h1>
-        </div>
-        <div class="tabs">
-          <button class="tab active" data-target="#form-square">Carré</button>
-          <button class="tab" data-target="#form-story">Story</button>
+          <div class="brand">
+            <img src="/api/logo" alt="Dubai Immo" />
+            <h1>Configurer le texte – Générateur de visuels</h1>
+          </div>
+          <div class="tabs">
+            <button type="button" class="tab active" data-target="#form-square">Carré</button>
+            <button type="button" class="tab" data-target="#form-story">Story</button>
+          </div>
         </div>
         <div class="body">
           <section class="main">
@@ -84,7 +87,8 @@
       const square = document.querySelector('#form-square');
       const story = document.querySelector('#form-story');
       tabs.forEach(btn=>{
-        btn.addEventListener('click', ()=>{
+        btn.addEventListener('click', (e)=>{
+          e.preventDefault();
           tabs.forEach(b=>b.classList.remove('active'));
           btn.classList.add('active');
           const target = btn.dataset.target;
