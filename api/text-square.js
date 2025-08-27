@@ -60,7 +60,7 @@ module.exports = async (req, res) => {
       const proto = req.headers['x-forwarded-proto'] || 'https';
       const host = req.headers.host;
       const baseUrl = `${proto}://${host}`;
-      const qs = new URLSearchParams({ line1, line2, line3 }).toString();
+      const qs = new URLSearchParams({ line1, line2, line3, format: 'square' }).toString();
       let generation;
       try {
         const resp = await fetch(`${baseUrl}/api/check-gmail?${qs}`, { method: 'POST' });

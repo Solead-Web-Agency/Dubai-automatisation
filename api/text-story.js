@@ -58,7 +58,7 @@ module.exports = async (req, res) => {
       const proto = req.headers['x-forwarded-proto'] || 'https';
       const host = req.headers.host;
       const baseUrl = `${proto}://${host}`;
-      const qs = new URLSearchParams({ storyLine1: line1, storyLine2: line2, storyLine3: line3 }).toString();
+      const qs = new URLSearchParams({ storyLine1: line1, storyLine2: line2, storyLine3: line3, format: 'story' }).toString();
 
       let generation;
       try {
