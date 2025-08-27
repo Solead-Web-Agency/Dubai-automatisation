@@ -57,7 +57,7 @@ module.exports = async (req, res) => {
             </p>
           </aside>
         </div>
-        <div class=\"footer\"><span>Dubai Immo – Générateur de visuels (carré)</span><span>Besoin d’un autre format ? <a href=\"/api/text-square\">Interface API</a></span></div>
+        <div class=\"footer\"><span>Dubai Immo – Générateur de visuels</span><span><a href=\"/api/text-square\">Carré</a> · <a href=\"/api/text-story\">Story</a></span></div>
       </div>
     </div>
   </body>
