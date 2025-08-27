@@ -18,6 +18,13 @@ module.exports = async (req, res) => {
 		}
 
 		const q = (req.query && req.query.q) || undefined;
+		// Overrides texte (pour format carré pour l'instant)
+		const squareOverrides = {
+			line1: req.query && req.query.line1 ? String(req.query.line1) : undefined,
+			line2: req.query && req.query.line2 ? String(req.query.line2) : undefined,
+			line3: req.query && req.query.line3 ? String(req.query.line3) : undefined,
+		};
+
 		const messages = await listRecentNotificationEmails({ q, maxResults: 5 });
 		if (!messages.length) {
 			return res.json({ success: true, processed: 0, results: [] });
@@ -37,7 +44,7 @@ module.exports = async (req, res) => {
 			};
 
 			const property = parseEmailContent(emailData);
-			const ads = await generateAds(property);
+			const ads = await generateAds(property, { squareText: squareOverrides });
 			
 			// Envoyer l'email avec les visuels générés
 			try {
