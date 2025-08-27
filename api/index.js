@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
     <div class=\"wrap\"> 
       <div class=\"card\"> 
         <div class=\"header\"> 
-          <img src=\"/assets/logo-dubai-immo-fond-transparent-scaled-en.avif\" alt=\"Dubai Immo\" /> 
+          <img src=\"/api/logo\" alt=\"Dubai Immo\" /> 
           <h1>Configurer le texte – Format Carré</h1> 
         </div>
         <div class=\"body\">
