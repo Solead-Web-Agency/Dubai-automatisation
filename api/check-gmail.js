@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
 			line2: req.query && req.query.storyLine2 ? String(req.query.storyLine2) : undefined,
 			line3: req.query && req.query.storyLine3 ? String(req.query.storyLine3) : undefined,
 		};
+		const cartouche = req.query && req.query.cartouche ? String(req.query.cartouche) : undefined;
 
 		const messages = await listRecentNotificationEmails({ q, maxResults: 5 });
 		if (!messages.length) {
@@ -39,7 +40,7 @@ module.exports = async (req, res) => {
 			const emailData = { subject: headers['subject'] || '', text, html: '', from: headers['from'] || '' };
 			const property = parseEmailContent(emailData);
 			const format = req.query && req.query.format ? String(req.query.format) : undefined;
-			const ads = await generateAds(property, { squareText: squareOverrides, storyText: storyOverrides, format });
+			const ads = await generateAds(property, { squareText: squareOverrides, storyText: storyOverrides, format, cartouche });
 			try { await sendAdsGeneratedEmail(property, ads); } catch (_) {}
 			results.push({ property, ads });
 		}

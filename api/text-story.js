@@ -52,13 +52,14 @@ module.exports = async (req, res) => {
       const line1 = params.get('line1') || '';
       const line2 = params.get('line2') || '';
       const line3 = params.get('line3') || '';
-      const data = { line1, line2, line3, savedAt: new Date().toISOString() };
+      const cartouche = params.get('cartouche') || '';
+      const data = { line1, line2, line3, cartouche, savedAt: new Date().toISOString() };
       fs.writeFileSync(configPath, JSON.stringify(data, null, 2));
 
       const proto = req.headers['x-forwarded-proto'] || 'https';
       const host = req.headers.host;
       const baseUrl = `${proto}://${host}`;
-      const qs = new URLSearchParams({ storyLine1: line1, storyLine2: line2, storyLine3: line3, format: 'story' }).toString();
+      const qs = new URLSearchParams({ storyLine1: line1, storyLine2: line2, storyLine3: line3, cartouche, format: 'story' }).toString();
 
       let generation;
       try {

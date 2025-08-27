@@ -53,14 +53,15 @@ module.exports = async (req, res) => {
       const line1 = params.get('line1') || '';
       const line2 = params.get('line2') || '';
       const line3 = params.get('line3') || '';
-      const data = { line1, line2, line3, savedAt: new Date().toISOString() };
+      const cartouche = params.get('cartouche') || '';
+      const data = { line1, line2, line3, cartouche, savedAt: new Date().toISOString() };
       fs.writeFileSync(configPath, JSON.stringify(data, null, 2));
 
       // Appeler /api/check-gmail pour lancer la génération (transmettre les lignes en query)
       const proto = req.headers['x-forwarded-proto'] || 'https';
       const host = req.headers.host;
       const baseUrl = `${proto}://${host}`;
-      const qs = new URLSearchParams({ line1, line2, line3, format: 'square' }).toString();
+      const qs = new URLSearchParams({ line1, line2, line3, cartouche, format: 'square' }).toString();
       let generation;
       try {
         const resp = await fetch(`${baseUrl}/api/check-gmail?${qs}`, { method: 'POST' });
