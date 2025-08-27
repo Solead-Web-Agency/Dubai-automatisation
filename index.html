@@ -11,19 +11,25 @@
       input{width:100%;padding:10px;font-size:16px}
       button{margin-top:16px;padding:10px 16px;font-size:16px;background:#111;color:#fff;border:none;border-radius:6px;cursor:pointer}
       .hint{color:#666;font-size:14px;margin-top:12px}
+      .code{background:#f5f5f5;border-radius:6px;padding:6px}
     </style>
   </head>
   <body>
     <h1>Texte – Format Carré</h1>
     <form method="POST" action="/api/text-square">
-      <label for="line1">Ligne 1 (bleu)</label>
+      <label for="line1">Ligne 1</label>
       <input id="line1" name="line1" placeholder="NOUVEAU PROJET" />
-      <label for="line2">Ligne 2 (bleu)</label>
+      <label for="line2">Ligne 2</label>
       <input id="line2" name="line2" placeholder="APPARTEMENT 70M2" />
-      <label for="line3">Ligne 3 (rouge)</label>
+      <label for="line3">Ligne 3</label>
       <input id="line3" name="line3" placeholder="À DUBAI DÈS 250.000€" />
       <button type="submit">Enregistrer et lancer la génération</button>
     </form>
-    <p class="hint">Astuce: après sauvegarde, la génération est lancée automatiquement et un récap s'affiche.</p>
+    <p class="hint">
+      Règles:
+      <br/>- Le texte est automatiquement converti en UPPERCASE.
+      <br/>- Pour mettre un ou plusieurs mots en rouge, utilisez <span class="code">red:MOT</span> (ou <span class="code">[[MOT]]</span>).
+      <br/>- Si une ligne est vide, elle n’est pas affichée (aucun fallback).
+    </p>
   </body>
 </html>
