@@ -115,8 +115,7 @@ module.exports = async (req, res) => {
     <div class="wrap">
       <div class="card">
         <div class="header">
-          <img src="/api/logo" alt="Dubai Immo" />
-          <h1>✅ Configuration enregistrée</h1>
+          <h1>Configuration enregistrée</h1>
         </div>
         <div class="body">
           <div class="success">
@@ -136,8 +135,6 @@ module.exports = async (req, res) => {
           
           <div class="actions">
             <a href="/" class="btn primary">Retour à l'accueil</a>
-            <a href="/api/text-square" class="btn ghost">Modifier le format carré</a>
-            <a href="/api/text-story" class="btn ghost">Modifier le format story</a>
           </div>
         </div>
         <div class="footer">
