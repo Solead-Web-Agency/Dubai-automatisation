@@ -56,13 +56,14 @@ module.exports = async (req, res) => {
       const data = { line1, line2, line3, savedAt: new Date().toISOString() };
       fs.writeFileSync(configPath, JSON.stringify(data, null, 2));
 
-      // Appeler /api/check-gmail pour lancer la génération
+      // Appeler /api/check-gmail pour lancer la génération (transmettre les lignes en query)
       const proto = req.headers['x-forwarded-proto'] || 'https';
       const host = req.headers.host;
       const baseUrl = `${proto}://${host}`;
+      const qs = new URLSearchParams({ line1, line2, line3 }).toString();
       let generation;
       try {
-        const resp = await fetch(`${baseUrl}/api/check-gmail`, { method: 'POST' });
+        const resp = await fetch(`${baseUrl}/api/check-gmail?${qs}`, { method: 'POST' });
         generation = await resp.json();
       } catch (e) {
         generation = { success: false, error: e.message };
